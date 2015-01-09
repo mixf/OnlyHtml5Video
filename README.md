@@ -1,11 +1,14 @@
 # OnlyHtml5Video
-<p>
-  <b>Be careful! The project is a work in progress. </b> 
-</p>
-<p>
-  OnlyHtml5Video provides custom controls to html5 video tag, and it's simple and small.<br/>
-  It only supports HTML5 video, so the modern browser is necessary.<br/>
-</p>
-<p>
-  It is a pure javascript library which can work well without any other library.
-</p>
+
+<b>The project is still a work in progress. </b> 
+
+
+OnlyHtml5Video is simple and small.
+
+It provides custom controls to HTML5 video tag.
+
+It's suitable js library when you only consider the modern browsers.
+
+### Self-supporting
+  It is a pure javascript library which can work well without any other library or project.
+
