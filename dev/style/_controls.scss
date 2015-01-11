@@ -1,0 +1,11 @@
+// _controls.scss
+.onlyhtml5video-controls {
+	position: absolute;
+	display: block;
+	margin-left:auto;
+	margin-right:auto;
+	top: 85%;
+	height: 15%;
+
+	@include vertical-align
+}

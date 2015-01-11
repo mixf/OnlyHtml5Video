@@ -33,11 +33,11 @@ window.onlyHtml5Video = function(){
 	var _modulePrefix = "onlyhtml5video";
 	var _containerClassName = _modulePrefix + "-container";
 	var _controlsClassName = _modulePrefix + "-controls";
-	var _playButtonClassName = _modulePrefix + "-playbutton";
-	var _progressBarClassName = _modulePrefix + "-progressbar";
-	var _muteButtonClassName = _modulePrefix + "-mutebutton";
+	var _playButtonClassName = _modulePrefix + "-play-button";
+	var _progressBarClassName = _modulePrefix + "-progress-bar";
+	var _muteButtonClassName = _modulePrefix + "-mute-button";
 	var _volumnClassName = _modulePrefix + "-volumn";
-	var _fullscreenClassName = _modulePrefix + "-fullscreenbutton";
+	var _fullscreenClassName = _modulePrefix + "-fullscreen-button";
 	//constant [end]
 
 	VideoContainer.prototype = {
