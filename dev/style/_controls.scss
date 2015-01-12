@@ -10,9 +10,10 @@
 // minin [end]
 
 // style the controls containter
-$controlsHeight : 50px;
+$controlsHeight : 40px;
 
-.onlyhtml5video-controls {
+// $prefix : ".onlyhtml5video-";  <style.scss>
+#{$prefix}controls {
 	position: relative;
 	display: block;
 	
@@ -21,6 +22,10 @@ $controlsHeight : 50px;
 
 	margin-top:  -$controlsHeight;
 	height: $controlsHeight;
+
+	*, *:before, *:after {
+		-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+	}
 }
 
 // style the elements in controls
@@ -31,25 +36,21 @@ $controlbackgroundColor : rgba(0,0,0,0.5);
 $buttonHeight : $controlsHeight;
 $_btH : $buttonHeight; //short name
 
-.onlyhtml5video-{
+#{$prefix}{
 
 	// play and pause button
 	&play-button {
 		position: relative;
-		// position: absolute;
-		// top:0;
 		margin: 0;
 		width: $_btH;
 		height: $_btH;
 
 		display:inline-block;
 		background: $controlbackgroundColor;
-
 		// play
 		//Triangle in the play button
-		.play{
+		#{$prefix}play{
 			
-			content: "";
 			position: absolute;
 			// draw the triangle
 			border-left:  ($_btH/2) solid $controlNormalColor;
@@ -57,40 +58,53 @@ $_btH : $buttonHeight; //short name
 			border-bottom: ($_btH/3) solid transparent;
 			// center the triangle
 			@include horizontal-vertical-center;
-		
+			
+
+			transition: border-color 0.5s;
+
 			// hover
-			&:hover{
-				border-left-color:  $controlHoverColor;
-			}
+			// &:hover{
+			// 	border-left-color:  $controlHoverColor;
+			// }
 		}
 		
-		// the shape like ||
-		.pause{
+		// the shape of the pause button likes "||"
+		#{$prefix}pause{
 			content: "";
 			position: absolute;
 
-			border: ($_btH / 10) solid #fff;
-			border-width: 0 ($_btH / 10); 
+			border: ($_btH / 6) solid $controlNormalColor;
+			border-width: 0 ($_btH / 6); 
 
-			width: ($_btH / 5);
-			height: ($_btH / 2);
+			width: ($_btH / 2);
+			height: ($_btH * 0.6);
 			background: rgba(255,255,255,0);
 			// center the ||
 			@include horizontal-vertical-center;
 
+			transition: border-color 0.5s;
+
 			//hover
-			&:hover{
+			// &:hover{
+			// 	border-color: $controlHoverColor;
+			// }
+		}// pause
+
+		// hover play button
+		&:hover{
+			#{$prefix}play {
+				border-left-color:  $controlHoverColor;
+			}
+
+			#{$prefix}pause {
 				border-color: $controlHoverColor;
 			}
 		}
-		// pause
 	}// end play and pause button
 
 	//TODO build up a function for the progress
 	&progress-bar {
 		position: relative;
-		// position: absolute;
-		// top:0; 
 		margin: 0;
 		width: 240px;
 		height: $_btH;
@@ -98,28 +112,165 @@ $_btH : $buttonHeight; //short name
 		display:inline-block;
 		background: $controlbackgroundColor;
 
-		/* vertical-align: middle;
-		text-align: center; */
-
+		// remove some strange blank(??inline-block)
+		font-size: 0; // Why???
 		// the progress which represents for video duration
-		.progress-wrapper {
+		#{$prefix}duration {
 			width:  90%;
 			height: ($_btH / 4);
 
 			margin: ($_btH * 0.375) auto 0;
 			background: $controlNormalColor;
 
-			.progress {
+			#{$prefix}current {
 				width: 0%;
 				height: ($_btH / 4);
 				background: $controlHoverColor;
-				transform: all 10s;
 			}
 
-			&:hover .progress{
+			&:hover #{$prefix}current{
 				width: 80%;
 			}
 		}
+	}// end progress bar
+
+	&mute-button {
+		width: $_btH;
+		height: $_btH;
+
+		position: relative;
+		display:inline-block;
+		background: $controlbackgroundColor;
+
+		#{$prefix}volume {
+			// draw 
+			position: absolute;
+			border-right:  ($_btH/2) solid $controlNormalColor;
+			border-top: ($_btH/3) solid transparent;
+			border-bottom: ($_btH/3) solid transparent;
+			@include horizontal-vertical-center;
+
+			&:before {
+				content: "";
+				position: absolute;
+				width: ($_btH/4);
+				height: ($_btH/4);
+				top: -($_btH/8);
+				background: $controlNormalColor;
+			}
+
+			&:after {
+				content: "";
+				position: absolute;
+				border-top: 3px dotted transparent;
+				width: $_btH;
+
+				left: -($_btH * .25);
+				top: -1px;
+				transform:rotate(-45deg);
+				transition: border-color 0.3s;
+			}
+
+			&:hover{
+				// splice line show up
+				&:after {
+					border-top-color: $controlNormalColor;
+				}
+			}
+		}
+
+		#{$prefix}mute {
+			position: absolute;
+			border-right:  ($_btH/2) solid $controlNormalColor;
+			border-top: ($_btH/3) solid transparent;
+			border-bottom: ($_btH/3) solid transparent;
+			@include horizontal-vertical-center;
+
+			&:before {
+				content: "";
+				position: absolute;
+				width: ($_btH/4);
+				height: ($_btH/4);
+				top: -($_btH/8);
+				background: $controlNormalColor;
+			}
+
+			&:after {
+				content: "";
+				position: absolute;
+				border-top: 3px solid $controlNormalColor;
+				width: $_btH * 1.1;
+
+				left: -($_btH * .25);
+				top: -1px;
+				transform:rotate(-45deg);
+				transition: all 0.3s linear;
+			}
+
+			&:hover{
+				border-right-color: $controlHoverColor;
+
+				&:before {
+					background: $controlHoverColor;
+				}
+
+				&:after {
+					border-top-color: transparent;
+				}
+			}
+		}
+	}// end mute button
+
+	&volume-bar{
+		@extend #{$prefix}progress-bar;
+		width: 80px;
+	}// end volumn bar
+
+	&fullscreen-button{
+		position: relative;
+
+		border: ($_btH / 10) solid transparent;
+		width: $_btH;
+		height: $_btH;
+		display:inline-block;
+		background: $controlbackgroundColor;
+
+		overflow: hidden;
+
+		#{$prefix}full{
+			width:100%;
+			height:100%;
+			border: ($_btH / 15) solid $controlNormalColor;
+			transition: border-color 0.5s;
+
+			&:before{
+				content: "";
+				position: absolute;
+				background: $controlNormalColor;
+
+				width: 120%;
+				height: 20%;
+				//center and middle element and rotate 45 degree
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%) rotate(45deg);
+
+				transition: all 0.5s;
+			}
+
+			// hover fullscreen button
+			&:hover{
+				border-color: $controlHoverColor;
+
+				&:before {
+					height: 75%;
+					// width: 75%;
+					background: $controlHoverColor;
+				}
+			}
+
+		}
+		
 	}
 }
 

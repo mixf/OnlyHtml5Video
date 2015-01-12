@@ -1,4 +1,6 @@
-.onlyhtml5video-container {
+$prefix : ".onlyhtml5video-";
+
+#{$prefix}container {
 	position: relative;
 	width: 100%;
 	height: 400px;
@@ -9,7 +11,7 @@
 	width:450px; */
 }
 
-.onlyhtml5video-video {
+#{$prefix}video {
 	position: relative;
 	display: block;
 	// top: 0;
