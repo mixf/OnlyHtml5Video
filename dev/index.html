@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="./style/style.css">
 </head>
 <body>
+	<!--
 	<video id="video1">
 		<source src="../small.mp4" type="video/mp4" >
 		<p>Your browser does not support the video tag.</p>
@@ -14,7 +15,20 @@
 
 	<script type="text/javascript">
 		var videoContainer = onlyHtml5Video.create("#video1");
-		console.log(document.getElementById('video1').prototype);
 	</script>
+	-->
+
+
+	<!-- html tag for development of control buttons -->
+	<div class="onlyhtml5video-container">
+		<video id="video1" class="onlyhtml5video-video">
+			<source src="../small.mp4" type="video/mp4" >
+			<p>Your browser does not support the video tag.</p>
+		</video>
+		<div class="onlyhtml5video-controls">
+			<div class="onlyhtml5video-play-button"><div class="pause"></div></div><div class="onlyhtml5video-progress-bar"><div class="progress-wrapper"><div class="progress"></div></div></div>
+		</div>
+	</div>
+
 </body>
 </html>

@@ -7,21 +7,75 @@
   width:450px; */ }
 
 .onlyhtml5video-video {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
+  display: block;
   width: 100%;
   height: 100%; }
 
 .onlyhtml5video-controls {
-  position: absolute;
+  position: relative;
   display: block;
-  top: 85%;
-  height: 15%;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%); }
+  width: 100%;
+  text-align: center;
+  margin-top: -50px;
+  height: 50px; }
+
+.onlyhtml5video-play-button {
+  position: relative;
+  margin: 0;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.5); }
+  .onlyhtml5video-play-button .play {
+    content: "";
+    position: absolute;
+    border-left: 25px solid #fff;
+    border-top: 16.66667px solid transparent;
+    border-bottom: 16.66667px solid transparent;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+    .onlyhtml5video-play-button .play:hover {
+      border-left-color: #00CCFF; }
+  .onlyhtml5video-play-button .pause {
+    content: "";
+    position: absolute;
+    border: 5px solid #fff;
+    border-width: 0 5px;
+    width: 10px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0);
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); }
+    .onlyhtml5video-play-button .pause:hover {
+      border-color: #00CCFF; }
+.onlyhtml5video-progress-bar {
+  position: relative;
+  margin: 0;
+  width: 240px;
+  height: 50px;
+  display: inline-block;
+  background: rgba(0, 0, 0, 0.5);
+  /* vertical-align: middle;
+  text-align: center; */ }
+  .onlyhtml5video-progress-bar .progress-wrapper {
+    width: 90%;
+    height: 12.5px;
+    margin: 18.75px auto 0;
+    background: #fff; }
+    .onlyhtml5video-progress-bar .progress-wrapper .progress {
+      width: 0%;
+      height: 12.5px;
+      background: #00CCFF;
+      transform: all 10s; }
+    .onlyhtml5video-progress-bar .progress-wrapper:hover .progress {
+      width: 80%; }
 
 /*video::-webkit-media-controls {
   display:none !important;
@@ -29,5 +83,3 @@
 video::-webkit-media-controls-enclosure {
   display:none !important;
 }*/
-
-/*# sourceMappingURL=style.css.map */

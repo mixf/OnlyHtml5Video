@@ -1,11 +1,125 @@
 // _controls.scss
-.onlyhtml5video-controls {
-	position: absolute;
-	display: block;
-	margin-left:auto;
-	margin-right:auto;
-	top: 85%;
-	height: 15%;
-
-	@include vertical-align
+// mixin [start]
+@mixin horizontal-vertical-center {
+	left: 50%;
+	top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
+// minin [end]
+
+// style the controls containter
+$controlsHeight : 50px;
+
+.onlyhtml5video-controls {
+	position: relative;
+	display: block;
+	
+	width: 100%;
+  	text-align: center; // center the content of the container
+
+	margin-top:  -$controlsHeight;
+	height: $controlsHeight;
+}
+
+// style the elements in controls
+$controlNormalColor : #fff;
+$controlHoverColor : #00CCFF;
+
+$controlbackgroundColor : rgba(0,0,0,0.5);
+$buttonHeight : $controlsHeight;
+$_btH : $buttonHeight; //short name
+
+.onlyhtml5video-{
+
+	// play and pause button
+	&play-button {
+		position: relative;
+		// position: absolute;
+		// top:0;
+		margin: 0;
+		width: $_btH;
+		height: $_btH;
+
+		display:inline-block;
+		background: $controlbackgroundColor;
+
+		// play
+		//Triangle in the play button
+		.play{
+			
+			content: "";
+			position: absolute;
+			// draw the triangle
+			border-left:  ($_btH/2) solid $controlNormalColor;
+			border-top: ($_btH/3) solid transparent;
+			border-bottom: ($_btH/3) solid transparent;
+			// center the triangle
+			@include horizontal-vertical-center;
+		
+			// hover
+			&:hover{
+				border-left-color:  $controlHoverColor;
+			}
+		}
+		
+		// the shape like ||
+		.pause{
+			content: "";
+			position: absolute;
+
+			border: ($_btH / 10) solid #fff;
+			border-width: 0 ($_btH / 10); 
+
+			width: ($_btH / 5);
+			height: ($_btH / 2);
+			background: rgba(255,255,255,0);
+			// center the ||
+			@include horizontal-vertical-center;
+
+			//hover
+			&:hover{
+				border-color: $controlHoverColor;
+			}
+		}
+		// pause
+	}// end play and pause button
+
+	//TODO build up a function for the progress
+	&progress-bar {
+		position: relative;
+		// position: absolute;
+		// top:0; 
+		margin: 0;
+		width: 240px;
+		height: $_btH;
+
+		display:inline-block;
+		background: $controlbackgroundColor;
+
+		/* vertical-align: middle;
+		text-align: center; */
+
+		// the progress which represents for video duration
+		.progress-wrapper {
+			width:  90%;
+			height: ($_btH / 4);
+
+			margin: ($_btH * 0.375) auto 0;
+			background: $controlNormalColor;
+
+			.progress {
+				width: 0%;
+				height: ($_btH / 4);
+				background: $controlHoverColor;
+				transform: all 10s;
+			}
+
+			&:hover .progress{
+				width: 80%;
+			}
+		}
+	}
+}
+
