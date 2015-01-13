@@ -47,8 +47,53 @@ $_btH : $buttonHeight; //short name
 
 		display:inline-block;
 		background: $controlbackgroundColor;
-		// play
+		
 		//Triangle in the play button
+		&.play{
+			&:before{
+				content: "";
+				position: absolute;
+				// draw the triangle
+				border-left:  ($_btH/2) solid $controlNormalColor;
+				border-top: ($_btH/3) solid transparent;
+				border-bottom: ($_btH/3) solid transparent;
+				// center the triangle
+				@include horizontal-vertical-center;
+
+				transition: border-color 0.5s;
+			}
+			
+			// hover
+			&:hover:before{
+				border-left-color:  $controlHoverColor;
+			}
+		}
+		
+		// the shape of the pause button likes "||"
+		&.pause{
+			&:before{
+				content: "";
+				position: absolute;
+				border: ($_btH / 6) solid $controlNormalColor;
+				border-width: 0 ($_btH / 6); 
+
+				width: ($_btH / 2);
+				height: ($_btH * 0.6);
+				background: rgba(255,255,255,0);
+				// center the ||
+				@include horizontal-vertical-center;
+
+				transition: border-color 0.5s;
+			}
+
+			//hover
+			&:hover:before{
+				border-color: $controlHoverColor;
+			}
+		}// pause
+		
+		//NO USE: older play and pause button implement
+		/*
 		#{$prefix}play{
 			
 			position: absolute;
@@ -67,27 +112,7 @@ $_btH : $buttonHeight; //short name
 			// 	border-left-color:  $controlHoverColor;
 			// }
 		}
-		//TODO simply
-		&.pause:before{
-			content: "";
-			position: absolute;
-			border: ($_btH / 6) solid $controlNormalColor;
-			border-width: 0 ($_btH / 6); 
 
-			width: ($_btH / 2);
-			height: ($_btH * 0.6);
-			background: rgba(255,255,255,0);
-			// center the ||
-			@include horizontal-vertical-center;
-
-			transition: border-color 0.5s;
-
-			//hover
-			// &:hover{
-			// 	border-color: $controlHoverColor;
-			// }
-		}
-		// the shape of the pause button likes "||"
 		#{$prefix}pause{
 			content: "";
 			position: absolute;
@@ -102,12 +127,7 @@ $_btH : $buttonHeight; //short name
 			@include horizontal-vertical-center;
 
 			transition: border-color 0.5s;
-
-			//hover
-			// &:hover{
-			// 	border-color: $controlHoverColor;
-			// }
-		}// pause
+		}
 
 		// hover play button
 		&:hover{
@@ -118,7 +138,7 @@ $_btH : $buttonHeight; //short name
 			#{$prefix}pause {
 				border-color: $controlHoverColor;
 			}
-		}
+		} */
 	}// end play and pause button
 
 	//TODO
