@@ -47,8 +47,53 @@ $_btH : $buttonHeight; //short name
 
 		display:inline-block;
 		background: $controlbackgroundColor;
-		// play
+		
 		//Triangle in the play button
+		&.play{
+			&:before{
+				content: "";
+				position: absolute;
+				// draw the triangle
+				border-left:  ($_btH/2) solid $controlNormalColor;
+				border-top: ($_btH/3) solid transparent;
+				border-bottom: ($_btH/3) solid transparent;
+				// center the triangle
+				@include horizontal-vertical-center;
+
+				transition: border-color 0.5s;
+			}
+			
+			// hover
+			&:hover:before{
+				border-left-color:  $controlHoverColor;
+			}
+		}
+		
+		// the shape of the pause button likes "||"
+		&.pause{
+			&:before{
+				content: "";
+				position: absolute;
+				border: ($_btH / 6) solid $controlNormalColor;
+				border-width: 0 ($_btH / 6); 
+
+				width: ($_btH / 2);
+				height: ($_btH * 0.6);
+				background: rgba(255,255,255,0);
+				// center the ||
+				@include horizontal-vertical-center;
+
+				transition: border-color 0.5s;
+			}
+
+			//hover
+			&:hover:before{
+				border-color: $controlHoverColor;
+			}
+		}// pause
+		
+		//NO USE: older play and pause button implement
+		/*
 		#{$prefix}play{
 			
 			position: absolute;
@@ -67,8 +112,7 @@ $_btH : $buttonHeight; //short name
 			// 	border-left-color:  $controlHoverColor;
 			// }
 		}
-		
-		// the shape of the pause button likes "||"
+
 		#{$prefix}pause{
 			content: "";
 			position: absolute;
@@ -83,12 +127,7 @@ $_btH : $buttonHeight; //short name
 			@include horizontal-vertical-center;
 
 			transition: border-color 0.5s;
-
-			//hover
-			// &:hover{
-			// 	border-color: $controlHoverColor;
-			// }
-		}// pause
+		}
 
 		// hover play button
 		&:hover{
@@ -99,10 +138,10 @@ $_btH : $buttonHeight; //short name
 			#{$prefix}pause {
 				border-color: $controlHoverColor;
 			}
-		}
+		} */
 	}// end play and pause button
 
-	//TODO build up a function for the progress
+	//TODO
 	&progress-bar {
 		position: relative;
 		margin: 0;
@@ -226,7 +265,7 @@ $_btH : $buttonHeight; //short name
 		width: 80px;
 	}// end volumn bar
 
-	&fullscreen-button{
+	/* &fullscreen-button{
 		position: relative;
 
 		border: ($_btH / 10) solid transparent;
@@ -268,9 +307,57 @@ $_btH : $buttonHeight; //short name
 					background: $controlHoverColor;
 				}
 			}
-
 		}
-		
+	} */
+
+	// TODO simplify the dom
+	&fullscreen-button2{
+		position: relative;
+
+		border: ($_btH / 10) solid transparent;
+		width: $_btH;
+		height: $_btH;
+		display:inline-block;
+		background: $controlbackgroundColor;
+
+		overflow: hidden;
+
+		&.full{
+			&:after {
+				content: "";
+				display: block;
+				width: ($_btH * 0.8);
+				height: ($_btH * 0.8);
+				border: ($_btH * 0.1) solid $controlNormalColor;
+				transition: border-color 0.5s;
+			}
+
+			&:before{
+				content: "";
+				position: absolute;
+				background: $controlNormalColor;
+
+				width: 120%;
+				height: 20%;
+				//center and middle element and rotate 45 degree
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%) rotate(45deg);
+
+				transition: all 0.5s;
+			}
+
+			// hover fullscreen button
+			&:hover{
+				&:after{border-color: $controlHoverColor;}
+
+				&:before {
+					height: 75%;
+					// width: 75%;
+					background: $controlHoverColor;
+				}
+			}
+		}
 	}
 }
 
