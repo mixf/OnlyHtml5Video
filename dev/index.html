@@ -26,9 +26,43 @@
 			<p>Your browser does not support the video tag.</p>
 		</video>
 		<div class="onlyhtml5video-controls">
-			<div class="onlyhtml5video-play-button"><div class="onlyhtml5video-pause"></div></div><div class="onlyhtml5video-progress-bar"><div class="onlyhtml5video-duration"><p class="onlyhtml5video-current"></p></div></div><div class="onlyhtml5video-mute-button"><div class="onlyhtml5video-mute"></div></div><div class="onlyhtml5video-volume-bar"><div class="onlyhtml5video-duration"><p class="onlyhtml5video-current"></p></div></div><div class="onlyhtml5video-fullscreen-button"><div class="onlyhtml5video-full"></div></div>
+			<div class="onlyhtml5video-play-button"><div class="onlyhtml5video-pause"></div></div><div id="progressBar"  class="onlyhtml5video-progress-bar"><div id="duration" class="onlyhtml5video-duration"><p id="current" class="onlyhtml5video-current"></p></div></div><div class="onlyhtml5video-mute-button"><div class="onlyhtml5video-mute"></div></div><div class="onlyhtml5video-volume-bar"><div class="onlyhtml5video-duration"><p class="onlyhtml5video-current"></p></div></div><div class="onlyhtml5video-fullscreen-button"><div class="onlyhtml5video-full"></div></div>
 		</div>
 	</div>
-
+	<script>
+		var duration = document.getElementById('duration');
+		var current = document.getElementById("current");
+		//click and slide will toggle the event.
+		utils.on(duration, "click", function(e){
+			var totalOffset = this.offsetWidth;
+			var offset = e.offsetX;
+			//update the progress
+			current.style.width = (offset / totalOffset  * 100) + "%";
+			console.log("click");
+		});
+		//move mouse to slide when the mouse is pressing
+		var leftButtonPressing = false;
+		utils.on(duration, "mousedown", function(e){
+			if(e.button === 0){//left button
+				leftButtonPressing = true;
+			}
+			console.log("down");
+		});
+		utils.on(duration, "mouseup", function(e){
+			if(e.button === 0){//left button
+				leftButtonPressing = false;
+			}
+			console.log("up");
+		});
+		utils.on(duration, "mousemove", function(e){
+			console.log("move");
+			if(leftButtonPressing && e.button === 0){//left button is pressing
+				var totalOffset = this.offsetWidth;
+				var offset = e.offsetX;
+				//update the progress
+				current.style.width = (offset / totalOffset  * 100) + "%";
+			}
+		});
+	</script>
 </body>
 </html>
