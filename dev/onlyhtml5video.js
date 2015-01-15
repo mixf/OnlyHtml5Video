@@ -22,11 +22,6 @@ window.onlyHtml5Video = function(){
 			var videoOptions = options[_videoOptionKey];
 			var controlsOptions = options[_controlsOptionKey];			
 		}
-
-		console.log(video.requestFullscreen);
-		console.log(video.mozRequestFullScreen);
-		console.log(video.webkitRequestFullscreen);
-
 	}
 
 	//constant [start]
@@ -62,60 +57,87 @@ window.onlyHtml5Video = function(){
 			return controls;
 		},
 		//Update play button according the video play status
-		updatePlayButton : function(){
-			var btText = this.video.paused === true? "Play ": "Pause";
-			this.controls.playButton.innerHTML = btText;
+		changePlayButton : function(showPlay){
+			var playClass = "play", 
+				pauseClass = "pause";
+			if(showPlay){
+				var oldDisplay = this.controls.playButton.style.display;
+				this.controls.playButton.style.display = "none";
+				utils.addClass(this.controls.playButton, playClass);
+				
+				utils.removeClass(this.controls.playButton, pauseClass);
+				this.controls.playButton.style.display = oldDisplay;
+			}else{
+				var oldDisplay = this.controls.playButton.style.display;
+				this.controls.playButton.style.display = "none";
+				utils.addClass(this.controls.playButton, pauseClass);
+				utils.removeClass(this.controls.playButton, playClass);
+				this.controls.playButton.style.display = oldDisplay;
+			}
+			
+		},
+		updatePlayButton : function(showPlay){
+			if(typeof showPlay !== "undefined"){
+				this.changePlayButton(showPlay);
+			}else{
+				this.changePlayButton(this.video.paused)
+			}
 		},
 		initPlayButton : function(){
-			var videoContainerObj = this;
+			var that = this;
 			var video = this.video;
-			var playBt = document.createElement("span");
+			var playBt = document.createElement("DIV");
 			playBt.className = _playButtonClassName;
 
 			this.controls.playButton = playBt;
-
 			this.updatePlayButton();
 
 			utils.on(playBt, "click", function(){
 				if (video.paused === true) {
 					//Play video and update button to pause
-					playBt.innerHTML = "Pause";
+					that.changePlayButton(false);
 					video.play();
 				}else{
 					//Pause video and update button to play
-					playBt.innerHTML = "Play ";
+					that.changePlayButton(true);
 					video.pause();
 				}
 			});
 
 			//Update play button when the video finishes playing
 			utils.on(video, "ended" , function(){
-				videoContainerObj.updatePlayButton()
+				that.updatePlayButton()
 			})
 			this.controls.appendChild(playBt);
 		},
 		initProgressBar : function() {
 			var video = this.video;
-			var progressBar = document.createElement("input");
+			var progressBar = document.createElement("DIV");
 			progressBar.className = _progressBarClassName;
-			utils.setAttributes(progressBar, {
+			var progress = utils.createProgress(function(currentRadio){
+				video.currentTime = video.duration * currentRadio;
+			});
+			progressBar.appendChild(progress);
+			console.log(progress.childNodes);
+			/*utils.setAttributes(progressBar, {
 				type: "range",
 				min: 0,
 				max: 100,
 				value: 0
-			});
+			});*/
 
 			// Update video time when user changes progress
-			utils.on(progressBar, "change", function(){
+			/*utils.on(progress, "change", function(){
 				//Calulate the video time 
 				var time = video.duration * (progressBar.value / 100);
 				video.currentTime = time;
 			});
+			*/
 
 			//Update the progress when the video is playing
 			utils.on(video, "timeupdate", function() {
 				var val = video.currentTime / video.duration * 100;
-				progressBar.value = val;
+				progress.current.style.width = val + "%";
 			})
 
 			this.controls.appendChild(progressBar);
@@ -164,9 +186,9 @@ window.onlyHtml5Video = function(){
 		initFullscreenButton : function(){
 			var video  = this.video;
 
-			var fsButton = document.createElement("span");
+			var fsButton = document.createElement("DIV");
 			fsButton.innerHTML = "Full";
-			fsButton.className = _fullscreenClassName;
+			fsButton.className = _fullscreenClassName + " full";
 			utils.on(fsButton, "click", function(){
 				if (video.requestFullscreen) {
 					video.requestFullscreen();

@@ -44,10 +44,11 @@ $_btH : $buttonHeight; //short name
 		margin: 0;
 		width: $_btH;
 		height: $_btH;
+		cursor: pointer;
 
 		display:inline-block;
 		background: $controlbackgroundColor;
-		
+		transition: border-width 0s;
 		//Triangle in the play button
 		&.play{
 			&:before{
@@ -71,7 +72,9 @@ $_btH : $buttonHeight; //short name
 		
 		// the shape of the pause button likes "||"
 		&.pause{
-			&:before{
+			//Distinguish .pause:after from .play:before.  
+			//If two button use same pseudo element, there is a switching play over pause animation when button is hover at the same time.
+			&:after{
 				content: "";
 				position: absolute;
 				border: ($_btH / 6) solid $controlNormalColor;
@@ -87,7 +90,7 @@ $_btH : $buttonHeight; //short name
 			}
 
 			//hover
-			&:hover:before{
+			&:hover:after{
 				border-color: $controlHoverColor;
 			}
 		}// pause
@@ -95,7 +98,6 @@ $_btH : $buttonHeight; //short name
 		//NO USE: older play and pause button implement
 		/*
 		#{$prefix}play{
-			
 			position: absolute;
 			// draw the triangle
 			border-left:  ($_btH/2) solid $controlNormalColor;
@@ -103,20 +105,16 @@ $_btH : $buttonHeight; //short name
 			border-bottom: ($_btH/3) solid transparent;
 			// center the triangle
 			@include horizontal-vertical-center;
-			
 
 			transition: border-color 0.5s;
-
 			// hover
 			// &:hover{
 			// 	border-left-color:  $controlHoverColor;
 			// }
 		}
-
 		#{$prefix}pause{
 			content: "";
 			position: absolute;
-
 			border: ($_btH / 6) solid $controlNormalColor;
 			border-width: 0 ($_btH / 6); 
 
@@ -128,20 +126,17 @@ $_btH : $buttonHeight; //short name
 
 			transition: border-color 0.5s;
 		}
-
 		// hover play button
 		&:hover{
 			#{$prefix}play {
 				border-left-color:  $controlHoverColor;
 			}
-
 			#{$prefix}pause {
 				border-color: $controlHoverColor;
 			}
 		} */
 	}// end play and pause button
 
-	//TODO
 	&progress-bar {
 		position: relative;
 		margin: 0;
@@ -154,21 +149,18 @@ $_btH : $buttonHeight; //short name
 		// remove some strange blank(??inline-block)
 		font-size: 0; // Why???
 		// the progress which represents for video duration
-		#{$prefix}duration {
+		.duration {
 			width:  90%;
 			height: ($_btH / 4);
 
 			margin: ($_btH * 0.375) auto 0;
+			cursor: pointer;
 			background: $controlNormalColor;
 
-			#{$prefix}current {
+			.current {
 				width: 0%;
 				height: ($_btH / 4);
 				background: $controlHoverColor;
-			}
-
-			&:hover #{$prefix}current{
-				width: 80%;
 			}
 		}
 	}// end progress bar
@@ -176,6 +168,7 @@ $_btH : $buttonHeight; //short name
 	&mute-button {
 		width: $_btH;
 		height: $_btH;
+		cursor: pointer;
 
 		position: relative;
 		display:inline-block;
@@ -296,7 +289,6 @@ $_btH : $buttonHeight; //short name
 
 				transition: all 0.5s;
 			}
-
 			// hover fullscreen button
 			&:hover{
 				border-color: $controlHoverColor;
@@ -310,7 +302,6 @@ $_btH : $buttonHeight; //short name
 		}
 	} */
 
-	// TODO simplify the dom
 	&fullscreen-button2{
 		position: relative;
 

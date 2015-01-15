@@ -56,7 +56,6 @@
   
   				transition: all 0.5s;
   			}
-  
   			// hover fullscreen button
   			&:hover{
   				border-color: $controlHoverColor;
@@ -74,11 +73,12 @@
     margin: 0;
     width: 40px;
     height: 40px;
+    cursor: pointer;
     display: inline-block;
     background: rgba(0, 0, 0, 0.5);
+    transition: border-width 0s;
     		/*
     		.onlyhtml5video-play{
-    			
     			position: absolute;
     			// draw the triangle
     			border-left:  ($_btH/2) solid $controlNormalColor;
@@ -86,20 +86,16 @@
     			border-bottom: ($_btH/3) solid transparent;
     			// center the triangle
     			@include horizontal-vertical-center;
-    			
     
     			transition: border-color 0.5s;
-    
     			// hover
     			// &:hover{
     			// 	border-left-color:  $controlHoverColor;
     			// }
     		}
-    
     		.onlyhtml5video-pause{
     			content: "";
     			position: absolute;
-    
     			border: ($_btH / 6) solid $controlNormalColor;
     			border-width: 0 ($_btH / 6); 
     
@@ -111,13 +107,11 @@
     
     			transition: border-color 0.5s;
     		}
-    
     		// hover play button
     		&:hover{
     			.onlyhtml5video-play {
     				border-left-color:  $controlHoverColor;
     			}
-    
     			.onlyhtml5video-pause {
     				border-color: $controlHoverColor;
     			}
@@ -136,7 +130,7 @@
       transition: border-color 0.5s; }
     .onlyhtml5video-play-button.play:hover:before {
       border-left-color: #00CCFF; }
-    .onlyhtml5video-play-button.pause:before {
+    .onlyhtml5video-play-button.pause:after {
       content: "";
       position: absolute;
       border: 6.66667px solid #fff;
@@ -150,7 +144,7 @@
       -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
       transition: border-color 0.5s; }
-    .onlyhtml5video-play-button.pause:hover:before {
+    .onlyhtml5video-play-button.pause:hover:after {
       border-color: #00CCFF; }
   .onlyhtml5video-progress-bar, .onlyhtml5video-volume-bar {
     position: relative;
@@ -160,20 +154,20 @@
     display: inline-block;
     background: rgba(0, 0, 0, 0.5);
     font-size: 0; }
-    .onlyhtml5video-progress-bar .onlyhtml5video-duration, .onlyhtml5video-volume-bar .onlyhtml5video-duration {
+    .onlyhtml5video-progress-bar .duration, .onlyhtml5video-volume-bar .duration {
       width: 90%;
       height: 10px;
       margin: 15px auto 0;
+      cursor: pointer;
       background: #fff; }
-      .onlyhtml5video-progress-bar .onlyhtml5video-duration .onlyhtml5video-current, .onlyhtml5video-volume-bar .onlyhtml5video-duration .onlyhtml5video-current {
+      .onlyhtml5video-progress-bar .duration .current, .onlyhtml5video-volume-bar .duration .current {
         width: 0%;
         height: 10px;
         background: #00CCFF; }
-      .onlyhtml5video-progress-bar .onlyhtml5video-duration:hover .onlyhtml5video-current, .onlyhtml5video-volume-bar .onlyhtml5video-duration:hover .onlyhtml5video-current {
-        width: 80%; }
   .onlyhtml5video-mute-button {
     width: 40px;
     height: 40px;
+    cursor: pointer;
     position: relative;
     display: inline-block;
     background: rgba(0, 0, 0, 0.5); }
