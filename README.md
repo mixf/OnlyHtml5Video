@@ -13,3 +13,7 @@ It's suitable js library when you only consider the modern browsers.
   It is a pure javascript library which can work well without any other library or project.
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mixflow/onlyhtml5video/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/mixflow/onlyhtml5video/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
