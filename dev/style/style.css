@@ -129,7 +129,7 @@
       transform: translate(-50%, -50%);
       transition: border-color 0.5s; }
     .onlyhtml5video-play-button.play:hover:before {
-      border-left-color: #00CCFF; }
+      border-left-color: #00ccff; }
     .onlyhtml5video-play-button.pause:after {
       content: "";
       position: absolute;
@@ -137,7 +137,7 @@
       border-width: 0 6.66667px;
       width: 20px;
       height: 24px;
-      background: rgba(255, 255, 255, 0);
+      background: transparent;
       left: 50%;
       top: 50%;
       -webkit-transform: translate(-50%, -50%);
@@ -145,7 +145,7 @@
       transform: translate(-50%, -50%);
       transition: border-color 0.5s; }
     .onlyhtml5video-play-button.pause:hover:after {
-      border-color: #00CCFF; }
+      border-color: #00ccff; }
   .onlyhtml5video-progress-bar, .onlyhtml5video-volume-bar {
     position: relative;
     margin: 0;
@@ -163,7 +163,8 @@
       .onlyhtml5video-progress-bar .duration .current, .onlyhtml5video-volume-bar .duration .current {
         width: 0%;
         height: 10px;
-        background: #00CCFF; }
+        background: #00ccff;
+        border-right: 1px solid #008cff; }
   .onlyhtml5video-mute-button {
     width: 40px;
     height: 40px;
@@ -171,7 +172,7 @@
     position: relative;
     display: inline-block;
     background: rgba(0, 0, 0, 0.5); }
-    .onlyhtml5video-mute-button .onlyhtml5video-volume {
+    .onlyhtml5video-mute-button .onlyhtml5video-unmute-status {
       position: absolute;
       border-right: 20px solid #fff;
       border-top: 13.33333px solid transparent;
@@ -180,26 +181,33 @@
       top: 50%;
       -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%); }
-      .onlyhtml5video-mute-button .onlyhtml5video-volume:before {
+      transform: translate(-50%, -50%);
+      transition: border-color 0.5s; }
+      .onlyhtml5video-mute-button .onlyhtml5video-unmute-status:before {
         content: "";
         position: absolute;
         width: 10px;
         height: 10px;
         top: -5px;
-        background: #fff; }
-      .onlyhtml5video-mute-button .onlyhtml5video-volume:after {
+        background: #fff;
+        transition: background-color 0.5s; }
+      .onlyhtml5video-mute-button .onlyhtml5video-unmute-status:after {
         content: "";
         position: absolute;
         border-top: 3px dotted transparent;
-        width: 40px;
+        width: 44px;
         left: -10px;
         top: -1px;
         transform: rotate(-45deg);
-        transition: border-color 0.3s; }
-      .onlyhtml5video-mute-button .onlyhtml5video-volume:hover:after {
-        border-top-color: #fff; }
-    .onlyhtml5video-mute-button .onlyhtml5video-mute {
+        transition: border-color 0.5s, opacity 0.5s; }
+      .onlyhtml5video-mute-button .onlyhtml5video-unmute-status:hover {
+        /* border-right-color: $controlHoverColor;
+        &:before {
+        	background: $controlHoverColor;
+        } */ }
+        .onlyhtml5video-mute-button .onlyhtml5video-unmute-status:hover:after {
+          border-top-color: rgba(0, 204, 255, 0.5); }
+    .onlyhtml5video-mute-button .onlyhtml5video-mute-status {
       position: absolute;
       border-right: 20px solid #fff;
       border-top: 13.33333px solid transparent;
@@ -208,15 +216,17 @@
       top: 50%;
       -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%); }
-      .onlyhtml5video-mute-button .onlyhtml5video-mute:before {
+      transform: translate(-50%, -50%);
+      transition: border-color 0.5s; }
+      .onlyhtml5video-mute-button .onlyhtml5video-mute-status:before {
         content: "";
         position: absolute;
         width: 10px;
         height: 10px;
         top: -5px;
-        background: #fff; }
-      .onlyhtml5video-mute-button .onlyhtml5video-mute:after {
+        background: #fff;
+        transition: background-color 0.5s; }
+      .onlyhtml5video-mute-button .onlyhtml5video-mute-status:after {
         content: "";
         position: absolute;
         border-top: 3px solid #fff;
@@ -224,16 +234,18 @@
         left: -10px;
         top: -1px;
         transform: rotate(-45deg);
-        transition: all 0.3s linear; }
-      .onlyhtml5video-mute-button .onlyhtml5video-mute:hover {
-        border-right-color: #00CCFF; }
-        .onlyhtml5video-mute-button .onlyhtml5video-mute:hover:before {
-          background: #00CCFF; }
-        .onlyhtml5video-mute-button .onlyhtml5video-mute:hover:after {
-          border-top-color: transparent; }
+        transition: border-top-color 0.5s; }
+      .onlyhtml5video-mute-button .onlyhtml5video-mute-status:hover {
+        border-right-color: #00ccff; }
+        .onlyhtml5video-mute-button .onlyhtml5video-mute-status:hover:before {
+          background: #00ccff; }
+        .onlyhtml5video-mute-button .onlyhtml5video-mute-status:hover:after {
+          border-top-color: rgba(255, 255, 255, 0.3); }
   .onlyhtml5video-volume-bar {
     width: 80px; }
-  .onlyhtml5video-fullscreen-button2 {
+    .onlyhtml5video-volume-bar.grey .duration .current {
+      background-color: #669999; }
+  .onlyhtml5video-fullscreen-button {
     position: relative;
     border: 4px solid transparent;
     width: 40px;
@@ -241,14 +253,14 @@
     display: inline-block;
     background: rgba(0, 0, 0, 0.5);
     overflow: hidden; }
-    .onlyhtml5video-fullscreen-button2.full:after {
+    .onlyhtml5video-fullscreen-button.full:after {
       content: "";
       display: block;
       width: 32px;
       height: 32px;
       border: 4px solid #fff;
       transition: border-color 0.5s; }
-    .onlyhtml5video-fullscreen-button2.full:before {
+    .onlyhtml5video-fullscreen-button.full:before {
       content: "";
       position: absolute;
       background: #fff;
@@ -258,11 +270,11 @@
       left: 50%;
       transform: translateX(-50%) translateY(-50%) rotate(45deg);
       transition: all 0.5s; }
-    .onlyhtml5video-fullscreen-button2.full:hover:after {
-      border-color: #00CCFF; }
-    .onlyhtml5video-fullscreen-button2.full:hover:before {
+    .onlyhtml5video-fullscreen-button.full:hover:after {
+      border-color: #00ccff; }
+    .onlyhtml5video-fullscreen-button.full:hover:before {
       height: 75%;
-      background: #00CCFF; }
+      background: #00ccff; }
 
 /*video::-webkit-media-controls {
   display:none !important;

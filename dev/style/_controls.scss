@@ -30,11 +30,15 @@ $controlsHeight : 40px;
 
 // style the elements in controls
 $controlNormalColor : #fff;
-$controlHoverColor : #00CCFF;
-
+$controlHoverColor : rgb(0, 204, 255); //#00CCFF
+$controlInactiveColor : rgb(102, 153, 153);//#669999
 $controlbackgroundColor : rgba(0,0,0,0.5);
+
 $buttonHeight : $controlsHeight;
 $_btH : $buttonHeight; //short name
+
+$transitionSeconds : 0.5s;
+$_tSec : $transitionSeconds; // short name
 
 #{$prefix}{
 
@@ -82,7 +86,7 @@ $_btH : $buttonHeight; //short name
 
 				width: ($_btH / 2);
 				height: ($_btH * 0.6);
-				background: rgba(255,255,255,0);
+				background: transparent;
 				// center the ||
 				@include horizontal-vertical-center;
 
@@ -161,6 +165,8 @@ $_btH : $buttonHeight; //short name
 				width: 0%;
 				height: ($_btH / 4);
 				background: $controlHoverColor;
+
+				border-right: 1px solid rgb(0,140,255);//TODO
 			}
 		}
 	}// end progress bar
@@ -174,13 +180,14 @@ $_btH : $buttonHeight; //short name
 		display:inline-block;
 		background: $controlbackgroundColor;
 
-		#{$prefix}volume {
+		#{$prefix}unmute-status {
 			// draw 
 			position: absolute;
 			border-right:  ($_btH/2) solid $controlNormalColor;
 			border-top: ($_btH/3) solid transparent;
 			border-bottom: ($_btH/3) solid transparent;
 			@include horizontal-vertical-center;
+			transition: border-color $_tSec;
 
 			&:before {
 				content: "";
@@ -189,34 +196,40 @@ $_btH : $buttonHeight; //short name
 				height: ($_btH/4);
 				top: -($_btH/8);
 				background: $controlNormalColor;
+				transition: background-color $_tSec;
 			}
 
 			&:after {
 				content: "";
 				position: absolute;
 				border-top: 3px dotted transparent;
-				width: $_btH;
+				width: $_btH * 1.1;
 
 				left: -($_btH * .25);
 				top: -1px;
 				transform:rotate(-45deg);
-				transition: border-color 0.3s;
+				transition: border-color $_tSec,opacity $_tSec;
 			}
 
 			&:hover{
+				/* border-right-color: $controlHoverColor;
+				&:before {
+					background: $controlHoverColor;
+				} */
 				// splice line show up
 				&:after {
-					border-top-color: $controlNormalColor;
+					border-top-color: rgba($controlHoverColor, 0.5);
 				}
 			}
 		}
 
-		#{$prefix}mute {
+		#{$prefix}mute-status {
 			position: absolute;
 			border-right:  ($_btH/2) solid $controlNormalColor;
 			border-top: ($_btH/3) solid transparent;
 			border-bottom: ($_btH/3) solid transparent;
 			@include horizontal-vertical-center;
+			transition: border-color $_tSec;
 
 			&:before {
 				content: "";
@@ -225,6 +238,7 @@ $_btH : $buttonHeight; //short name
 				height: ($_btH/4);
 				top: -($_btH/8);
 				background: $controlNormalColor;
+				transition: background-color $_tSec;
 			}
 
 			&:after {
@@ -236,7 +250,7 @@ $_btH : $buttonHeight; //short name
 				left: -($_btH * .25);
 				top: -1px;
 				transform:rotate(-45deg);
-				transition: all 0.3s linear;
+				transition: border-top-color $_tSec;
 			}
 
 			&:hover{
@@ -245,9 +259,8 @@ $_btH : $buttonHeight; //short name
 				&:before {
 					background: $controlHoverColor;
 				}
-
 				&:after {
-					border-top-color: transparent;
+					border-top-color: rgba($controlNormalColor ,0.3);
 				}
 			}
 		}
@@ -256,6 +269,12 @@ $_btH : $buttonHeight; //short name
 	&volume-bar{
 		@extend #{$prefix}progress-bar;
 		width: 80px;
+
+		&.grey{
+			.duration .current{
+				background-color: $controlInactiveColor;
+			}
+		}
 	}// end volumn bar
 
 	/* &fullscreen-button{
@@ -302,7 +321,7 @@ $_btH : $buttonHeight; //short name
 		}
 	} */
 
-	&fullscreen-button2{
+	&fullscreen-button{
 		position: relative;
 
 		border: ($_btH / 10) solid transparent;

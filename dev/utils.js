@@ -18,7 +18,7 @@ window.utils = function(){
 				var offset = e.offsetX;
 				//update the progress
 				current.style.width = (offset / totalOffset  * 100) + "%";
-				console.log("click");
+				//console.log("click");
 
 				callback(offset / totalOffset);
 			});
@@ -28,16 +28,16 @@ window.utils = function(){
 				if(e.button === 0){//left button
 					leftButtonPressing = true;
 				}
-				console.log("down");
+				//console.log("down");
 			});
 			this.on(duration, "mouseup", function(e){
 				if(e.button === 0){//left button
 					leftButtonPressing = false;
 				}
-				console.log("up");
+				//console.log("up");
 			});
 			this.on(duration, "mousemove", function(e){
-				console.log("move");
+				//console.log("move");
 				if(leftButtonPressing && e.button === 0){//left button is pressing
 					var totalOffset = this.offsetWidth;
 					var offset = e.offsetX;
@@ -49,15 +49,28 @@ window.utils = function(){
 			return duration;
 		},
 		//DOM utility
-		addClass: function(el, clazz){
-			var reg = new RegExp("(\\s|^)" + clazz + "(\\s|$)");
-			if(!el.className.match(reg)){// there isn't this class
-				el.className += " " + clazz;
-			}
+		hasClass: function(ele, cls) {
+		    return ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
 		},
-		removeClass: function(el, clazz){
-			var reg = new RegExp("(\\s|^)" + clazz + "(\\s|$)", "g");
-			el.className = el.className.replace(reg , ' ');
+		addClass: function(ele, cls) {
+		    if (!this.hasClass(ele, cls)) ele.className += " " + cls;
+		},
+		removeClass: function(ele, cls) {
+	        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+	        ele.className = ele.className.replace(reg, ' ');
+		},
+		replaceClass: function (ele, oldClass, newClass) {
+	        this.removeClass(ele, oldClass);
+	        this.addClass(ele, newClass);
+		},
+		toggleClass: function(ele, cls1, cls2) {
+		    if (this.hasClass(ele, cls1)) {
+		        this.replaceClass(ele, cls1, cls2);
+		    } else if (this.hasClass(ele, cls2)) {
+		        this.replaceClass(ele, cls2, cls1);
+		    } else {
+		        this.addClass(ele, cls1);
+		    }
 		},
 		on: function(el, evt, fn){
 			el.addEventListener(evt, fn, false);

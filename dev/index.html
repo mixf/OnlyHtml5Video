@@ -14,22 +14,13 @@
 	</video>
 
 	<script type="text/javascript">
-		var videoContainer = onlyHtml5Video.create("#video1");
+		var videoContainer = onlyHtml5Video.create("#video1", {
+			controls: {
+				//hidden: ["mute", "volume", "fullscreen"]
+			}
+		});
 	</script>
 	
-
-
-	<!-- html tag for development of control buttons -->
-	<div class="onlyhtml5video-container">
-		<video id="video1" class="onlyhtml5video-video">
-			<source src="../small.mp4" type="video/mp4" >
-			<p>Your browser does not support the video tag.</p>
-		</video>
-		<div class="onlyhtml5video-controls">
-			<div class="onlyhtml5video-play-button pause"><!-- <div class="onlyhtml5video-pause"></div> --></div><div id="progressBar"  class="onlyhtml5video-progress-bar"><div id="duration" class="onlyhtml5video-duration"><p id="current" class="onlyhtml5video-current"></p></div></div><div class="onlyhtml5video-mute-button"><div class="onlyhtml5video-mute"></div></div><div class="onlyhtml5video-volume-bar"><div class="onlyhtml5video-duration"><p class="onlyhtml5video-current"></p></div></div><!-- <div class="onlyhtml5video-fullscreen-button"><div class="onlyhtml5video-full"></div></div> --><div class="onlyhtml5video-fullscreen-button2 full"></div>
-
-		</div>
-	</div>
 	<script>
 		var duration = document.getElementById('duration');
 		var current = document.getElementById("current");

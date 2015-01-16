@@ -1,27 +1,18 @@
 window.onlyHtml5Video = function(){
-	var _videoOptionKey = "video",
-		_controlsOptionKey = "controls";
-
 	// the Object contains video and controls
 	function VideoContainer(video, options){
-		
+		options = options || {};
+
 		this.video = video;
 		video.className += " " + _modulePrefix + "-video";
 		this.createContainer();
-		this.createControls();
+		this.createControls(options.controls);
 		var container = this.container;
 		var controls = this.controls;
 
 		//warp video with container which includes the controls
 		utils.warp(video, container);
-		container.appendChild(controls)
-
-		//set OPTIONS in the video and controls
-		//TODO
-		if(typeof options !== "undefined"){
-			var videoOptions = options[_videoOptionKey];
-			var controlsOptions = options[_controlsOptionKey];			
-		}
+		container.appendChild(controls);
 	}
 
 	//constant [start]
@@ -30,8 +21,8 @@ window.onlyHtml5Video = function(){
 	var _controlsClassName = _modulePrefix + "-controls";
 	var _playButtonClassName = _modulePrefix + "-play-button";
 	var _progressBarClassName = _modulePrefix + "-progress-bar";
-	var _muteButtonClassName = _modulePrefix + "-mute-button";
-	var _volumnClassName = _modulePrefix + "-volumn";
+	var _muteButtonClassName = _modulePrefix + "-mute-button", _unmuteStatusClassName = _modulePrefix + "-unmute-status", _muteStatusClassName = _modulePrefix + "-mute-status";
+	var _volumeBarClassName = _modulePrefix + "-volume-bar";
 	var _fullscreenClassName = _modulePrefix + "-fullscreen-button";
 	//constant [end]
 
@@ -44,44 +35,34 @@ window.onlyHtml5Video = function(){
 		},
 
 		// Video controls [start]
-		createControls : function(){
+		createControls : function(options){
+			options = options || {};
+			var hiddenControls = [].concat(options.hidden);
+
 			var controls = document.createElement("DIV");
 			controls.className = _controlsClassName;
 			this.controls  = controls;
 
 			this.initPlayButton();
 			this.initProgressBar();
-			this.initMuteButton();
-			this.initVolumnBar();
-			this.initFullscreenButton();
+			if(hiddenControls.indexOf("mute") < 0)
+				this.initMuteButton();
+			if(hiddenControls.indexOf("volume") < 0)
+				this.initVolumeBar();
+			if(hiddenControls.indexOf("fullscreen") < 0)
+				this.initFullscreenButton();
 			return controls;
 		},
 		//Update play button according the video play status
-		changePlayButton : function(showPlay){
+		changePlayButton : function(isButtonPlay){
 			var playClass = "play", 
 				pauseClass = "pause";
-			if(showPlay){
-				var oldDisplay = this.controls.playButton.style.display;
-				this.controls.playButton.style.display = "none";
-				utils.addClass(this.controls.playButton, playClass);
-				
-				utils.removeClass(this.controls.playButton, pauseClass);
-				this.controls.playButton.style.display = oldDisplay;
+			if(isButtonPlay){
+				utils.replaceClass(this.controls.playButton, pauseClass, playClass);
 			}else{
-				var oldDisplay = this.controls.playButton.style.display;
-				this.controls.playButton.style.display = "none";
-				utils.addClass(this.controls.playButton, pauseClass);
-				utils.removeClass(this.controls.playButton, playClass);
-				this.controls.playButton.style.display = oldDisplay;
+				utils.replaceClass(this.controls.playButton, playClass, pauseClass);
 			}
 			
-		},
-		updatePlayButton : function(showPlay){
-			if(typeof showPlay !== "undefined"){
-				this.changePlayButton(showPlay);
-			}else{
-				this.changePlayButton(this.video.paused)
-			}
 		},
 		initPlayButton : function(){
 			var that = this;
@@ -90,7 +71,7 @@ window.onlyHtml5Video = function(){
 			playBt.className = _playButtonClassName;
 
 			this.controls.playButton = playBt;
-			this.updatePlayButton();
+			this.changePlayButton(video.paused);
 
 			utils.on(playBt, "click", function(){
 				if (video.paused === true) {
@@ -106,7 +87,7 @@ window.onlyHtml5Video = function(){
 
 			//Update play button when the video finishes playing
 			utils.on(video, "ended" , function(){
-				that.updatePlayButton()
+				that.changePlayButton(true);
 			})
 			this.controls.appendChild(playBt);
 		},
@@ -142,12 +123,43 @@ window.onlyHtml5Video = function(){
 
 			this.controls.appendChild(progressBar);
 		},
-		initMuteButton : function() {
-			var video  = this.video;
-			var muteBt = document.createElement("span");
-			muteBt.className = _muteButtonClassName;
+		changeMuteButton:function(isButtonVolume){
+			var content = this.controls.muteButton.buttonContent;
+			if(isButtonVolume) utils.replaceClass(content, _muteStatusClassName, _unmuteStatusClassName);
+			else utils.replaceClass(content, _unmuteStatusClassName, _muteStatusClassName);
+		},
+		greyVolume : function(willApply){
+			var volumeBar = this.controls.volumeBar;
+			if(typeof volumeBar != "undefined")
+				utils.toggleClass(volumeBar, "grey", "");
 
-			var btText = video.muted === true? "Unmute": "Mute  ";
+		},
+		initMuteButton : function() {
+			var that = this;
+			var video  = this.video;
+			var muteBt = document.createElement("DIV");
+			muteBt.className = _muteButtonClassName;
+			var buttonContent = document.createElement("DIV");
+			muteBt.appendChild(buttonContent);
+			this.controls.muteButton = muteBt;
+			this.controls.muteButton.buttonContent = buttonContent; 
+			//init mute button
+			this.changeMuteButton(!video.muted);
+			//click event
+			utils.on(muteBt, "click", function(){
+				if (video.muted === true) {
+					//Unmute video and update button to mute
+					that.changeMuteButton(true);
+					that.greyVolume(false);
+					video.muted = false;				
+				}else{
+					//Mute video and update button to umute
+					that.changeMuteButton(false);
+					that.greyVolume(true);
+					video.muted = true;
+				}
+			});
+			/*var btText = video.muted === true? "Unmute": "Mute  ";
 			muteBt.innerHTML = btText;
 
 			utils.on(muteBt, "click", function(){
@@ -160,17 +172,27 @@ window.onlyHtml5Video = function(){
 					muteBt.innerHTML = "Unmute";
 					video.muted = true;
 				}
-			});
+			});*/
 			this.controls.appendChild(muteBt);
 		},
 
-		initVolumnBar : function() {
+		initVolumeBar : function() {
 			var video = this.video;
 			var _volumeDefaultVal = video.volume;
 
-			var volumnBar = document.createElement("input");
-			volumnBar.className = _volumnClassName;
-			utils.setAttributes(volumnBar, {
+			var volumeBar = document.createElement("DIV");
+			volumeBar.className = _volumeBarClassName;
+
+			var volume = utils.createProgress(function(currentRadio){
+				video.volume = currentRadio;
+			});
+			this.controls.volumeBar = volumeBar;
+			this.controls.volumeBar.volume = volume;
+			//init volume
+			volume.current.style.width = video.volume * 100 + "%";
+
+			volumeBar.appendChild(volume);
+			/*utils.setAttributes(volumnBar, {
 				type: "range",
 				min: 0,
 				max: 1,
@@ -179,15 +201,15 @@ window.onlyHtml5Video = function(){
 			});
 			utils.on(volumnBar, "change", function(){
 				video.volume = volumnBar.value;
-			})
-			this.controls.appendChild(volumnBar);
+			})*/
+
+			this.controls.appendChild(volumeBar);
 		},
 
 		initFullscreenButton : function(){
 			var video  = this.video;
 
 			var fsButton = document.createElement("DIV");
-			fsButton.innerHTML = "Full";
 			fsButton.className = _fullscreenClassName + " full";
 			utils.on(fsButton, "click", function(){
 				if (video.requestFullscreen) {
