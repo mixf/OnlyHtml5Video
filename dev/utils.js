@@ -6,14 +6,14 @@ window.utils = function(){
 	var utils = {
 		//co
 		createProgress: function(callback){
-			var duration = document.createElement("DIV");
-			duration.className = "duration";
+			var total = document.createElement("DIV");
+			total.className = "total";
 			var current = document.createElement("DIV");
 			current.className = "current";
-			duration.appendChild(current);
-			duration.current = current;
+			total.appendChild(current);
+			total.current = current;
 
-			this.on(duration, "click", function(e){
+			this.on(total, "click", function(e){
 				var totalOffset = this.offsetWidth;
 				var offset = e.offsetX;
 				//update the progress
@@ -24,19 +24,19 @@ window.utils = function(){
 			});
 			//move mouse to slide when the mouse is pressing
 			var leftButtonPressing = false;
-			this.on(duration, "mousedown", function(e){
+			this.on(total, "mousedown", function(e){
 				if(e.button === 0){//left button
 					leftButtonPressing = true;
 				}
 				//console.log("down");
 			});
-			this.on(duration, "mouseup", function(e){
+			this.on(total, "mouseup", function(e){
 				if(e.button === 0){//left button
 					leftButtonPressing = false;
 				}
 				//console.log("up");
 			});
-			this.on(duration, "mousemove", function(e){
+			this.on(total, "mousemove", function(e){
 				//console.log("move");
 				if(leftButtonPressing && e.button === 0){//left button is pressing
 					var totalOffset = this.offsetWidth;
@@ -46,7 +46,7 @@ window.utils = function(){
 				}
 			});
 
-			return duration;
+			return total;
 		},
 		//DOM utility
 		hasClass: function(ele, cls) {
