@@ -1,9 +1,13 @@
 .onlyhtml5video-container {
   position: relative;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 400px;
   /* margin: 120px 0 0 50px; 
   width:450px; */ }
+  .onlyhtml5video-container.fullscreen-mode {
+    width: 100%;
+    height: 100%;
+    background-color: #000; }
 
 .onlyhtml5video-video {
   position: relative;
@@ -274,10 +278,3 @@
     .onlyhtml5video-fullscreen-button.full:hover:before {
       height: 75%;
       background: #00ccff; }
-
-/*video::-webkit-media-controls {
-  display:none !important;
-}
-video::-webkit-media-controls-enclosure {
-  display:none !important;
-}*/

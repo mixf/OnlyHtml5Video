@@ -2,14 +2,17 @@ $prefix : ".onlyhtml5video-";
 
 #{$prefix}container {
 	position: relative;
-	// width: 100%;
-	width: 100%;
-	height: 100%;
-
-	// border: 2px dotted #000;
-
+	width: 80%;
+	height: 400px;
 	/* margin: 120px 0 0 50px; 
 	width:450px; */
+
+	&.fullscreen-mode { // fullscreen
+		//Cover video container to the screen when fullscreen 
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+	}
 }
 
 #{$prefix}video {
@@ -22,10 +25,3 @@ $prefix : ".onlyhtml5video-";
 }
 
 @import 'controls';
-
-/*video::-webkit-media-controls {
-  display:none !important;
-}
-video::-webkit-media-controls-enclosure {
-  display:none !important;
-}*/

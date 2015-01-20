@@ -37,7 +37,7 @@ window.onlyHtml5Video = function(){
 		// Video controls [start]
 		createControls : function(options){
 			options = options || {};
-			var hiddenControls = [].concat(options.hidden);
+			var hiddenControls = [].concat(options.hide);
 
 			var controls = document.createElement("DIV");
 			controls.className = _controlsClassName;
@@ -45,7 +45,7 @@ window.onlyHtml5Video = function(){
 
 			this.initPlayButton();
 			this.initProgressBar();
-			if(hiddenControls.indexOf("mute") < 0)
+			if(hiddenControls.indexOf("mute") < 0) 
 				this.initMuteButton();
 			if(hiddenControls.indexOf("volume") < 0)
 				this.initVolumeBar();
@@ -220,18 +220,42 @@ window.onlyHtml5Video = function(){
 					video.webkitRequestFullscreen(); // Chrome and Safari
 				}*/
 
-				//The container element goes fullscreen, not video 
-				if (video.requestFullscreen) {
-					container.requestFullscreen();
-				} else if (video.mozRequestFullScreen) {
-					container.mozRequestFullScreen(); // Firefox
-				} else if (video.webkitRequestFullscreen) {
-					container.webkitRequestFullscreen(); // Chrome and Safari
-				} else if (video.msRequestFullscreen) {
-					container.msRequestFullscreen();
-				} else { // Don't support fullscreen
-					console.log("The bowser doesn't support fullscreen mode");
+				// change the container fullscreen mode
+				function toggleContainerFullscreen(){
+					var fullscreenModeClazz = "fullscreen-mode";
+					
+					if(utils.hasClass(container, fullscreenModeClazz)){
+						// exit fullscreen
+						if (document.exitFullscreen) {
+							document.exitFullscreen();
+						} else if (document.msExitFullscreen) {
+							document.msExitFullscreen();
+						} else if (document.mozCancelFullScreen) {
+							document.mozCancelFullScreen();
+						} else if (document.webkitExitFullscreen) {
+							document.webkitExitFullscreen();
+						} else {
+							console.log("The bowser doesn't support fullscreen mode"); //// Don't support fullscreen
+						}
+						
+						utils.removeClass(container, fullscreenModeClazz ); //remove class
+					}else{
+						// enter fullscreen
+						if (document.documentElement.requestFullscreen) {
+							container.requestFullscreen();
+						} else if (document.documentElement.msRequestFullscreen) {
+							container.msRequestFullscreen();
+						} else if (document.documentElement.mozRequestFullScreen) {
+							container.mozRequestFullScreen();
+						} else if (document.documentElement.webkitRequestFullscreen) {
+							container.webkitRequestFullscreen();
+						}
+						utils.addClass(container, fullscreenModeClazz); //add fullscreen label class
+					}
 				}
+
+				//The container element goes fullscreen, not video 
+				toggleContainerFullscreen();
 			});
 
 			this.controls.appendChild(fsButton);
