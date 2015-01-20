@@ -209,8 +209,11 @@ window.onlyHtml5Video = function(){
 			var video  = this.video;
 			var container = this.container;
 
+			var _requestClazz = "full";
+			var _exitClazz = "exit";
+
 			var fsButton = document.createElement("DIV");
-			fsButton.className = _fullscreenClassName + " full";
+			fsButton.className = _fullscreenClassName + " " + _requestClazz;
 			utils.on(fsButton, "click", function(){
 				/*if (video.requestFullscreen) {
 					video.requestFullscreen();
@@ -252,7 +255,10 @@ window.onlyHtml5Video = function(){
 						}
 						utils.addClass(container, fullscreenModeClazz); //add fullscreen label class
 					}
+
+					utils.toggleClass(fsButton, _requestClazz, _exitClazz); //change button style
 				}
+				//TODO detect and handle when full-screen change
 
 				//The container element goes fullscreen, not video 
 				toggleContainerFullscreen();

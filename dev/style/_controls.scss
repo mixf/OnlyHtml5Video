@@ -37,7 +37,7 @@ $controlbackgroundColor : rgba(0,0,0,0.5);
 $buttonHeight : $controlsHeight;
 $_btH : $buttonHeight; //short name
 
-$transitionSeconds : 0.5s;
+$transitionSeconds : 0.8s;
 $_tSec : $transitionSeconds; // short name
 
 #{$prefix}{
@@ -339,7 +339,7 @@ $_tSec : $transitionSeconds; // short name
 				width: ($_btH * 0.8);
 				height: ($_btH * 0.8);
 				border: ($_btH * 0.1) solid $controlNormalColor;
-				transition: border-color 0.5s;
+				transition: border-color $_tSec;
 			}
 
 			&:before{
@@ -354,7 +354,7 @@ $_tSec : $transitionSeconds; // short name
 				left: 50%;
 				transform: translateX(-50%) translateY(-50%) rotate(45deg);
 
-				transition: all 0.5s;
+				transition: all $_tSec;
 			}
 
 			// hover fullscreen button
@@ -365,6 +365,36 @@ $_tSec : $transitionSeconds; // short name
 					height: 75%;
 					// width: 75%;
 					background: $controlHoverColor;
+				}
+			}
+		}
+
+		&.exit{
+			&:before,&:after {
+				content: "";
+				position: absolute;
+
+				width: ($_btH * 0.6);
+				border-width: ($_btH / 5);
+				border-style: solid;
+				border-color: transparent $controlNormalColor; 
+
+				top: 50%;
+				left: 50%;
+				transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+
+				transition: all $_tSec;
+			}
+			&:after {
+				transform: translateX(-50%) translateY(-50%) rotate(45deg); //override
+			}
+			
+			&:hover{
+				&:before,&:after{
+					border-color: $controlHoverColor;
+					border-width: ($_btH * 0.1);
+					height:  ($_btH * 0.6);
+					transform: translateX(-50%) translateY(-50%);
 				}
 			}
 		}

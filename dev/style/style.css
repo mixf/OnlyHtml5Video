@@ -185,7 +185,7 @@
       -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      transition: border-color 0.5s; }
+      transition: border-color 0.8s; }
       .onlyhtml5video-mute-button .onlyhtml5video-unmute-status:before {
         content: "";
         position: absolute;
@@ -193,7 +193,7 @@
         height: 10px;
         top: -5px;
         background: #fff;
-        transition: background-color 0.5s; }
+        transition: background-color 0.8s; }
       .onlyhtml5video-mute-button .onlyhtml5video-unmute-status:after {
         content: "";
         position: absolute;
@@ -202,7 +202,7 @@
         left: -10px;
         top: -1px;
         transform: rotate(-45deg);
-        transition: border-color 0.5s, opacity 0.5s; }
+        transition: border-color 0.8s, opacity 0.8s; }
       .onlyhtml5video-mute-button .onlyhtml5video-unmute-status:hover {
         /* border-right-color: $controlHoverColor;
         &:before {
@@ -220,7 +220,7 @@
       -webkit-transform: translate(-50%, -50%);
       -ms-transform: translate(-50%, -50%);
       transform: translate(-50%, -50%);
-      transition: border-color 0.5s; }
+      transition: border-color 0.8s; }
       .onlyhtml5video-mute-button .onlyhtml5video-mute-status:before {
         content: "";
         position: absolute;
@@ -228,7 +228,7 @@
         height: 10px;
         top: -5px;
         background: #fff;
-        transition: background-color 0.5s; }
+        transition: background-color 0.8s; }
       .onlyhtml5video-mute-button .onlyhtml5video-mute-status:after {
         content: "";
         position: absolute;
@@ -237,7 +237,7 @@
         left: -10px;
         top: -1px;
         transform: rotate(-45deg);
-        transition: border-top-color 0.5s; }
+        transition: border-top-color 0.8s; }
       .onlyhtml5video-mute-button .onlyhtml5video-mute-status:hover {
         border-right-color: #00ccff; }
         .onlyhtml5video-mute-button .onlyhtml5video-mute-status:hover:before {
@@ -262,7 +262,7 @@
       width: 32px;
       height: 32px;
       border: 4px solid #fff;
-      transition: border-color 0.5s; }
+      transition: border-color 0.8s; }
     .onlyhtml5video-fullscreen-button.full:before {
       content: "";
       position: absolute;
@@ -272,9 +272,27 @@
       top: 50%;
       left: 50%;
       transform: translateX(-50%) translateY(-50%) rotate(45deg);
-      transition: all 0.5s; }
+      transition: all 0.8s; }
     .onlyhtml5video-fullscreen-button.full:hover:after {
       border-color: #00ccff; }
     .onlyhtml5video-fullscreen-button.full:hover:before {
       height: 75%;
       background: #00ccff; }
+    .onlyhtml5video-fullscreen-button.exit:before, .onlyhtml5video-fullscreen-button.exit:after {
+      content: "";
+      position: absolute;
+      width: 24px;
+      border-width: 8px;
+      border-style: solid;
+      border-color: transparent #fff;
+      top: 50%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+      transition: all 0.8s; }
+    .onlyhtml5video-fullscreen-button.exit:after {
+      transform: translateX(-50%) translateY(-50%) rotate(45deg); }
+    .onlyhtml5video-fullscreen-button.exit:hover:before, .onlyhtml5video-fullscreen-button.exit:hover:after {
+      border-color: #00ccff;
+      border-width: 4px;
+      height: 24px;
+      transform: translateX(-50%) translateY(-50%); }

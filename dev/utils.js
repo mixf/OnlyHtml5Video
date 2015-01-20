@@ -57,7 +57,7 @@ window.utils = function(){
 		},
 		removeClass: function(ele, cls) {
 	        var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
-	        ele.className = ele.className.replace(reg, ' ');
+	        ele.className = ele.className.replace(reg, '');
 		},
 		replaceClass: function (ele, oldClass, newClass) {
 	        this.removeClass(ele, oldClass);
