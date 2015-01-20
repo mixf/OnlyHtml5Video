@@ -153,7 +153,7 @@ $_tSec : $transitionSeconds; // short name
 		// remove some strange blank(??inline-block)
 		font-size: 0; // Why???
 		// the progress which represents for video duration
-		.duration {
+		.total {
 			width:  90%;
 			height: ($_btH / 4);
 
@@ -271,7 +271,7 @@ $_tSec : $transitionSeconds; // short name
 		width: 80px;
 
 		&.grey{
-			.duration .current{
+			.total .current{
 				background-color: $controlInactiveColor;
 			}
 		}

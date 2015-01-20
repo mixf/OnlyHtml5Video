@@ -99,7 +99,6 @@ window.onlyHtml5Video = function(){
 				video.currentTime = video.duration * currentRadio;
 			});
 			progressBar.appendChild(progress);
-			console.log(progress.childNodes);
 			/*utils.setAttributes(progressBar, {
 				type: "range",
 				min: 0,
@@ -188,8 +187,8 @@ window.onlyHtml5Video = function(){
 			});
 			this.controls.volumeBar = volumeBar;
 			this.controls.volumeBar.volume = volume;
-			//init volume
-			volume.current.style.width = video.volume * 100 + "%";
+			//Init volume bar by the video initial volume
+			volume.current.style.width = video.volume * 100 + "%"; // set width in percentage
 
 			volumeBar.appendChild(volume);
 			/*utils.setAttributes(volumnBar, {
@@ -208,16 +207,30 @@ window.onlyHtml5Video = function(){
 
 		initFullscreenButton : function(){
 			var video  = this.video;
+			var container = this.container;
 
 			var fsButton = document.createElement("DIV");
 			fsButton.className = _fullscreenClassName + " full";
 			utils.on(fsButton, "click", function(){
-				if (video.requestFullscreen) {
+				/*if (video.requestFullscreen) {
 					video.requestFullscreen();
 				} else if (video.mozRequestFullScreen) {
 					video.mozRequestFullScreen(); // Firefox
 				} else if (video.webkitRequestFullscreen) {
 					video.webkitRequestFullscreen(); // Chrome and Safari
+				}*/
+
+				//The container element goes fullscreen, not video 
+				if (video.requestFullscreen) {
+					container.requestFullscreen();
+				} else if (video.mozRequestFullScreen) {
+					container.mozRequestFullScreen(); // Firefox
+				} else if (video.webkitRequestFullscreen) {
+					container.webkitRequestFullscreen(); // Chrome and Safari
+				} else if (video.msRequestFullscreen) {
+					container.msRequestFullscreen();
+				} else { // Don't support fullscreen
+					console.log("The bowser doesn't support fullscreen mode");
 				}
 			});
 
