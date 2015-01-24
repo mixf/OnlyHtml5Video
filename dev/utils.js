@@ -14,7 +14,7 @@ window.utils = function(){
 
 			this.on(total, "click", function(e){
 				var totalOffset = this.offsetWidth;
-				var offset = e.offsetX;
+				var offset = e.offsetX === undefined ? e.layerX: e.offsetX; // support Firefox(layerX)
 				//update the progress
 				current.style.width = (offset / totalOffset  * 100) + "%";
 				//console.log("click");
@@ -39,7 +39,7 @@ window.utils = function(){
 				//console.log("move");
 				if(leftButtonPressing && e.button === 0){//left button is pressing
 					var totalOffset = this.offsetWidth;
-					var offset = e.offsetX;
+					var offset = e.offsetX === undefined ? e.layerX: e.offsetX; // support Firefox(layerX)
 					//update the progress
 					current.style.width = (offset / totalOffset  * 100) + "%";
 				}
