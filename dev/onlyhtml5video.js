@@ -99,20 +99,6 @@ window.onlyHtml5Video = function(){
 				video.currentTime = video.duration * currentRadio;
 			});
 			progressBar.appendChild(progress);
-			/*utils.setAttributes(progressBar, {
-				type: "range",
-				min: 0,
-				max: 100,
-				value: 0
-			});*/
-
-			// Update video time when user changes progress
-			/*utils.on(progress, "change", function(){
-				//Calulate the video time 
-				var time = video.duration * (progressBar.value / 100);
-				video.currentTime = time;
-			});
-			*/
 
 			//Update the progress when the video is playing
 			utils.on(video, "timeupdate", function() {
@@ -158,20 +144,6 @@ window.onlyHtml5Video = function(){
 					video.muted = true;
 				}
 			});
-			/*var btText = video.muted === true? "Unmute": "Mute  ";
-			muteBt.innerHTML = btText;
-
-			utils.on(muteBt, "click", function(){
-				if (video.muted === true) {
-					//Unmute video and update button to mute
-					muteBt.innerHTML = "Mute  ";
-					video.muted = false;
-				}else{
-					//Mute video and update button to umute
-					muteBt.innerHTML = "Unmute";
-					video.muted = true;
-				}
-			});*/
 			this.controls.appendChild(muteBt);
 		},
 
@@ -191,17 +163,6 @@ window.onlyHtml5Video = function(){
 			volume.current.style.width = video.volume * 100 + "%"; // set width in percentage
 
 			volumeBar.appendChild(volume);
-			/*utils.setAttributes(volumnBar, {
-				type: "range",
-				min: 0,
-				max: 1,
-				step: 0.01,
-				value: _volumeDefaultVal
-			});
-			utils.on(volumnBar, "change", function(){
-				video.volume = volumnBar.value;
-			})*/
-
 			this.controls.appendChild(volumeBar);
 		},
 
@@ -215,13 +176,6 @@ window.onlyHtml5Video = function(){
 			var fsButton = document.createElement("DIV");
 			fsButton.className = _fullscreenClassName + " " + _requestClazz;
 			utils.on(fsButton, "click", function(){
-				/*if (video.requestFullscreen) {
-					video.requestFullscreen();
-				} else if (video.mozRequestFullScreen) {
-					video.mozRequestFullScreen(); // Firefox
-				} else if (video.webkitRequestFullscreen) {
-					video.webkitRequestFullscreen(); // Chrome and Safari
-				}*/
 
 				// change the container fullscreen mode
 				function toggleContainerFullscreen(){
