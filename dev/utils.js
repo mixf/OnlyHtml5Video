@@ -4,7 +4,6 @@
 */
 window.utils = function(){
 	var utils = {
-		//co
 		createProgress: function(callback){
 			var total = document.createElement("DIV");
 			total.className = "total";
