@@ -5,8 +5,8 @@ Pure **javascript** and **css** library which provides **same** style custom con
 ###For user:
 (see in *example.html*)
 ```html
-<script type="text/javascript" src="./js/onlyhtml5video.all.min.js"></script>
-<link rel="stylesheet" type="text/css" href="./style/style.all.min.css">
+<script type="text/javascript" src="./js/onlyhtml5video.min.js"></script>
+<link rel="stylesheet" type="text/css" href="./style/style.min.css">
 
 <video id="video1">
 	<source src="./small.mp4" type="video/mp4" >
@@ -20,6 +20,6 @@ Pure **javascript** and **css** library which provides **same** style custom con
 
 #Features:
 * Self-supporting: It is a pure javascript library which can work well without any other library or project.
-* Small: the minify javascript and css is less than 6kb each.
+* Small: the minify javascript and css is less than 7kb each.
 
 

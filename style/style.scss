@@ -1,4 +1,27 @@
-// _controls.scss
+$prefix : ".onlyhtml5video-";
+
+#{$prefix}container {
+	position: relative;
+	width: 80%;
+	height: 400px;
+
+	&.fullscreen-mode { // fullscreen
+		//Cover video container to the screen when fullscreen 
+		width: 100%;
+		height: 100%;
+		background-color: #000;
+	}
+}
+
+#{$prefix}video {
+	position: relative;
+	display: block;
+	// top: 0;
+	// left: 0;
+	width: 100%;
+	height: 100%;
+}
+
 // mixin [start]
 @mixin horizontal-vertical-center {
 	left: 50%;
@@ -317,4 +340,3 @@ $_tSec : $transitionSeconds; // short name
 		}
 	}// end fullscreen button
 }
-
