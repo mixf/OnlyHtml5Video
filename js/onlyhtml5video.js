@@ -25,6 +25,8 @@ window.onlyHtml5Video = function(){
 	var _muteButtonClassName = _modulePrefix + "-mute-button", _unmuteStatusClassName = _modulePrefix + "-unmute-status", _muteStatusClassName = _modulePrefix + "-mute-status";
 	var _volumeBarClassName = _modulePrefix + "-volume-bar";
 	var _fullscreenClassName = _modulePrefix + "-fullscreen-button";
+
+	var fullscreenModeClazz = "fullscreen-mode";
 	//constant [end]
 
 	VideoContainer.prototype = {
@@ -180,9 +182,9 @@ window.onlyHtml5Video = function(){
 
 				// change the container fullscreen mode
 				function toggleContainerFullscreen(){
-					var fullscreenModeClazz = "fullscreen-mode";
 					
-					if(utils.hasClass(container, fullscreenModeClazz)){
+					if(document.fullscreenElement ||    // alternative standard method
+      					document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement /*utils.hasClass(container, fullscreenModeClazz)*/){
 						// exit fullscreen
 						if (document.exitFullscreen) {
 							document.exitFullscreen();
@@ -195,8 +197,7 @@ window.onlyHtml5Video = function(){
 						} else {
 							console.log("The bowser doesn't support fullscreen mode"); //// Don't support fullscreen
 						}
-						
-						utils.removeClass(container, fullscreenModeClazz ); //remove class
+						utils.removeClass(container, fullscreenModeClazz ); //remove fullscreen label class of container
 					}else{
 						// enter fullscreen
 						if (document.documentElement.requestFullscreen) {
@@ -208,16 +209,30 @@ window.onlyHtml5Video = function(){
 						} else if (document.documentElement.webkitRequestFullscreen) {
 							container.webkitRequestFullscreen();
 						}
-						utils.addClass(container, fullscreenModeClazz); //add fullscreen label class
+						utils.addClass(container, fullscreenModeClazz); //add fullscreen label class of container
 					}
-
-					utils.toggleClass(fsButton, _requestClazz, _exitClazz); //change button style
+					utils.toggleClass(fsButton, _requestClazz, _exitClazz); //change fullscreen button style
 				}
-				//TODO detect and handle when full-screen change
 
 				//The container element goes fullscreen, not video 
 				toggleContainerFullscreen();
+			}); // end click event listener
+
+			//TODO detect and handle when full-screen change
+			/*utils.on(container, "fullscreenchange webkitfullscreenchange", function(){
+				console.log("container change");
+				if(utils.hasClass(container, fullscreenModeClazz)){
+					utils.removeClass(container, fullscreenModeClazz ); //remove fullscreen label class of container
+				}else{
+					utils.addClass(container, fullscreenModeClazz); //add fullscreen label class of container
+				}
+				utils.toggleClass(fsButton, _requestClazz, _exitClazz); //change fullscreen button style
 			});
+			//TODO 
+			utils.on(document, "mozfullscreenchange MSFullscreenChange", function() {
+			    console.log("change");
+			});*/
+
 
 			this.controls.appendChild(fsButton);
 		}
@@ -294,7 +309,11 @@ window.onlyHtml5Video = function(){
 		    }
 		},
 		on: function(el, evt, fn){
-			el.addEventListener(evt, fn, false);
+			var events = evt.split(" "); // multi events 
+			for (var i = events.length - 1; i >= 0; i--) {
+				el.addEventListener(events[i], fn, false);
+			};
+			
 		},
 		warp : function(el, warpper){
 			var parent = el.parentNode;
