@@ -2,6 +2,8 @@
 
 Pure **javascript** and **css** library which provides **same** style custom controls to HTML5 video in modern bowsers (known suport bowsers: Chrome, Firefox, IE11).
 
+[Demo on JSFiddle!](http://jsfiddle.net/mixflow/3edastrL/)
+
 ###For user:
 (see in *example.html*)
 ```html
