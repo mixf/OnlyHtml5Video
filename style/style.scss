@@ -314,7 +314,7 @@ $_tSec : $transitionSeconds; // short name
 				content: "";
 				position: absolute;
 
-				width: ($_btH * 0.6);
+				width: ($_btH * 0.7);
 				border-width: ($_btH / 5);
 				border-style: solid;
 				border-color: transparent $controlNormalColor; 
@@ -330,12 +330,20 @@ $_tSec : $transitionSeconds; // short name
 			}
 			
 			&:hover{
+				&:before, &:after{
+					width: $_btH * 0.5;
+					border-width: $_btH / 5;
+				}
+
+
+				/* 
+				// comment the old square button style
 				&:before,&:after{
 					border-color: $controlHoverColor;
 					border-width: ($_btH * 0.1);
 					height:  ($_btH * 0.6);
 					transform: translateX(-50%) translateY(-50%);
-				}
+				} */
 			}
 		}
 	}// end fullscreen button

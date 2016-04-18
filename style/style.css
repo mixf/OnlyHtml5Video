@@ -196,7 +196,7 @@
   .onlyhtml5video-fullscreen-button.exit:before, .onlyhtml5video-fullscreen-button.exit:after {
     content: "";
     position: absolute;
-    width: 24px;
+    width: 28px;
     border-width: 8px;
     border-style: solid;
     border-color: transparent #fff;
@@ -206,10 +206,15 @@
     transition: all 0.8s; }
   .onlyhtml5video-fullscreen-button.exit:after {
     transform: translateX(-50%) translateY(-50%) rotate(45deg); }
-  .onlyhtml5video-fullscreen-button.exit:hover:before, .onlyhtml5video-fullscreen-button.exit:hover:after {
-    border-color: #00ccff;
-    border-width: 4px;
-    height: 24px;
-    transform: translateX(-50%) translateY(-50%); }
-
-/*# sourceMappingURL=style.css.map */
+  .onlyhtml5video-fullscreen-button.exit:hover {
+    /* 
+    // comment the old square button style
+    &:before,&:after{
+    	border-color: $controlHoverColor;
+    	border-width: ($_btH * 0.1);
+    	height:  ($_btH * 0.6);
+    	transform: translateX(-50%) translateY(-50%);
+    } */ }
+    .onlyhtml5video-fullscreen-button.exit:hover:before, .onlyhtml5video-fullscreen-button.exit:hover:after {
+      width: 20px;
+      border-width: 8px; }
