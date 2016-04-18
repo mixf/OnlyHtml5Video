@@ -1,19 +1,35 @@
 window.onlyHtml5Video = function(){
 
+	var _defaultOptions = {
+		initControls: true
+	}
+
 	// the Object contains video and controls
 	function VideoContainer(video, options){
 		options = options || {};
 
+		// fill options with the default value
+		for(var key in _defaultOptions){
+			if(!options.hasOwnProperty(key)){
+				options[key] = _defaultOptions[key];
+			}
+		}
+
 		this.video = video;
 		video.className += " " + _modulePrefix + "-video";
 		this.createContainer();
-		this.createControls(options.controls);
 		var container = this.container;
-		var controls = this.controls;
-
 		//warp video with container which includes the controls
 		utils.warp(video, container);
-		container.appendChild(controls);
+
+		// determine to initialize the controls
+		if(options.initControls === true){
+			this.createControls(options.controls);
+			
+			var controls = this.controls;
+			container.appendChild(controls);
+		}
+		
 	}
 
 	//constant [start]
@@ -38,21 +54,26 @@ window.onlyHtml5Video = function(){
 		},
 
 		// Video controls [start]
-		createControls : function(options){
-			options = options || {};
-			var hiddenControls = [].concat(options.hide);
+		createControls : function(controlsOptions){
+			controlsOptions = controlsOptions || {};
+			var disableControls = [].concat(controlsOptions.disable);
 
 			var controls = document.createElement("DIV");
 			controls.className = _controlsClassName;
 			this.controls  = controls;
 
+			// configure the controls to hide
+			if(controlsOptions.hidden === true){
+				controls.style.visibility = "hidden";
+			}
+
 			this.initPlayButton();
 			this.initProgressBar();
-			if(hiddenControls.indexOf("mute") < 0) 
+			if(disableControls.indexOf("mute") < 0) 
 				this.initMuteButton();
-			if(hiddenControls.indexOf("volume") < 0)
+			if(disableControls.indexOf("volume") < 0)
 				this.initVolumeBar();
-			if(hiddenControls.indexOf("fullscreen") < 0)
+			if(disableControls.indexOf("fullscreen") < 0)
 				this.initFullscreenButton();
 			return controls;
 		},
