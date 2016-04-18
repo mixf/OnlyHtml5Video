@@ -20,9 +20,11 @@
 
 	<script type="text/javascript">
 		var videoContainer = onlyHtml5Video.create("#video1", {
-			controls: {
-				//hide: ["mute", "volume", "fullscreen"]
-			}
+			// initControls: true, // if false, all controls will not be created
+			// controls: {
+			// 	hidden: false, // whether hide all contorls
+			// 	disable: ["mute", "volume", "fullscreen"] // disable the button, and the button will not be created
+			// }
 		});
 	</script>
 </body>
