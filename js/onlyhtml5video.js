@@ -46,6 +46,7 @@ window.onlyHtml5Video = function(){
 	//constant [end]
 
 	VideoContainer.prototype = {
+
 		createContainer : function(){
 			var container = document.createElement("DIV");
 			container.className = _containerClassName;
@@ -68,7 +69,9 @@ window.onlyHtml5Video = function(){
 			}
 
 			this.initPlayButton();
+
 			this.initProgressBar();
+
 			if(disableControls.indexOf("mute") < 0) 
 				this.initMuteButton();
 			if(disableControls.indexOf("volume") < 0)
@@ -88,6 +91,19 @@ window.onlyHtml5Video = function(){
 			}
 			
 		},
+		switchPlayButtonState : function(){
+			var video = this.video;
+			if (video.paused === true) {
+				//Play video and update button to pause
+				this.changePlayButton(false);
+				video.play();
+			}else{
+				//Pause video and update button to play
+				this.changePlayButton(true);
+				video.pause();
+			}
+		},
+
 		initPlayButton : function(){
 			var that = this;
 			var video = this.video;
@@ -98,15 +114,12 @@ window.onlyHtml5Video = function(){
 			this.changePlayButton(video.paused);
 
 			utils.on(playBt, "click", function(){
-				if (video.paused === true) {
-					//Play video and update button to pause
-					that.changePlayButton(false);
-					video.play();
-				}else{
-					//Pause video and update button to play
-					that.changePlayButton(true);
-					video.pause();
-				}
+				that.switchPlayButtonState();
+			});
+
+			// register the event that user clicks the video panel to play or pause the video
+			utils.on(video, "click", function(){
+				that.switchPlayButtonState();
 			});
 
 			//Update play button when the video finishes playing
@@ -257,7 +270,6 @@ window.onlyHtml5Video = function(){
 
 			this.controls.appendChild(fsButton);
 		}
-		// Video controls [start]
 	}
 
 	// DOM utility
