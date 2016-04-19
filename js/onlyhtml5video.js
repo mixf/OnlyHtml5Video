@@ -214,7 +214,7 @@ window.onlyHtml5Video = function(){
 			fsButton.className = _fullscreenClassName + " " + _requestClazz;
 			utils.on(fsButton, "click", function(){
 
-				// change the container fullscreen mode
+				// change the container fullscreen mode(enter or exit)
 				function toggleContainerFullscreen(){
 					
 					if(document.fullscreenElement ||    // alternative standard method
@@ -231,7 +231,6 @@ window.onlyHtml5Video = function(){
 						} else {
 							console.log("The bowser doesn't support fullscreen mode"); //// Don't support fullscreen
 						}
-						utils.removeClass(container, fullscreenModeClazz ); //remove fullscreen label class of container
 					}else{
 						// enter fullscreen
 						if (document.documentElement.requestFullscreen) {
@@ -242,30 +241,31 @@ window.onlyHtml5Video = function(){
 							container.mozRequestFullScreen();
 						} else if (document.documentElement.webkitRequestFullscreen) {
 							container.webkitRequestFullscreen();
+						} else {
+							console.log("The bowser doesn't support fullscreen mode"); //// Don't support fullscreen
 						}
-						utils.addClass(container, fullscreenModeClazz); //add fullscreen label class of container
 					}
-					utils.toggleClass(fsButton, _requestClazz, _exitClazz); //change fullscreen button style
 				}
 
 				//The container element goes fullscreen, not video 
 				toggleContainerFullscreen();
 			}); // end click event listener
+		
+			// change the fullscreen button once fullscreen changed(listen to the event)
+			utils.on(container, "webkitfullscreenchange mozfullscreenchange fullscreenchange", function(){
+				
+				fullscreenElement =document.fullscreenElement ||    // alternative standard method
+      					document.mozFullScreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
 
-			//TODO detect and handle when full-screen change
-			/*utils.on(container, "fullscreenchange webkitfullscreenchange", function(){
-				console.log("container change");
-				if(utils.hasClass(container, fullscreenModeClazz)){
-					utils.removeClass(container, fullscreenModeClazz ); //remove fullscreen label class of container
-				}else{
-					utils.addClass(container, fullscreenModeClazz); //add fullscreen label class of container
-				}
-				utils.toggleClass(fsButton, _requestClazz, _exitClazz); //change fullscreen button style
+      			if(fullscreenElement !== undefined){
+      				// fullscreen is on
+      				utils.addClass(container, fullscreenModeClazz); //add fullscreen label class of container
+      			}else{
+      				// fullscreen is off
+      				utils.removeClass(container, fullscreenModeClazz); //remove fullscreen label
+      			}
+      			utils.toggleClass(fsButton, _requestClazz, _exitClazz); //change fullscreen button style
 			});
-			//TODO 
-			utils.on(document, "mozfullscreenchange MSFullscreenChange", function() {
-			    console.log("change");
-			});*/
 
 
 			this.controls.appendChild(fsButton);
