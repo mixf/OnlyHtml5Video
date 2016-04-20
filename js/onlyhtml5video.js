@@ -19,7 +19,7 @@ window.onlyHtml5Video = function(){
 		video.className += " " + _modulePrefix + "-video";
 		this.createContainer();
 		var container = this.container;
-		//warp video with container which includes the controls
+		//warp video with container which may include the controls
 		utils.warp(video, container);
 
 		// determine to initialize the controls
@@ -80,7 +80,11 @@ window.onlyHtml5Video = function(){
 				this.initFullscreenButton();
 			return controls;
 		},
-		//Update play button according the video play status
+
+		/*
+			Update play button according the video play status
+			@param isButtonPlay: true means play button; false means pause button.
+		*/
 		changePlayButton : function(isButtonPlay){
 			var playClass = "play", 
 				pauseClass = "pause";
@@ -122,7 +126,7 @@ window.onlyHtml5Video = function(){
 				that.switchPlayButtonState();
 			});
 
-			//Update play button when the video finishes playing
+			//Update play button when the video ends
 			utils.on(video, "ended" , function(){
 				that.changePlayButton(true);
 			})
@@ -145,11 +149,14 @@ window.onlyHtml5Video = function(){
 
 			this.controls.appendChild(progressBar);
 		},
+
+		//@param isButtonVolum: true means unmute button; false means mute button
 		changeMuteButton:function(isButtonVolume){
 			var content = this.controls.muteButton.buttonContent;
 			if(isButtonVolume) utils.replaceClass(content, _muteStatusClassName, _unmuteStatusClassName);
 			else utils.replaceClass(content, _unmuteStatusClassName, _muteStatusClassName);
 		},
+
 		greyVolume : function(willApply){
 			var volumeBar = this.controls.volumeBar;
 			if(typeof volumeBar != "undefined")
@@ -172,11 +179,13 @@ window.onlyHtml5Video = function(){
 				if (video.muted === true) {
 					//Unmute video and update button to mute
 					that.changeMuteButton(true);
+					// recover the volume bar color when the video is unmuted
 					that.greyVolume(false);
 					video.muted = false;				
 				}else{
 					//Mute video and update button to umute
 					that.changeMuteButton(false);
+					// change the volume bar color when the video is muted
 					that.greyVolume(true);
 					video.muted = true;
 				}
@@ -274,6 +283,13 @@ window.onlyHtml5Video = function(){
 
 	// DOM utility
 	var utils = {
+		/*
+			@param callback: the callback function will be called when user clicks the progress bar.
+				callback function take one parameter which is the ratio of progress(the click position / total bar length)
+		
+				----------  (10 dashes)
+				  ^->0.3 ^->1.0
+		*/
 		createProgress: function(callback){
 			var total = document.createElement("DIV");
 			total.className = "total";
@@ -283,7 +299,7 @@ window.onlyHtml5Video = function(){
 			total.current = current;
 
 			this.on(total, "click", function(e){
-				var totalOffset = this.offsetWidth;
+				var totalOffset = this.offsetWidth; // 'this' is 'total'
 				var offset = e.offsetX === undefined ? e.layerX: e.offsetX; // support Firefox(layerX)
 				//update the progress
 				current.style.width = (offset / totalOffset  * 100) + "%";
