@@ -1,4 +1,4 @@
-window.onlyHtml5Video = function(){
+var onlyHtml5Video = function(){
 
 	var _defaultOptions = {
 		initControls: true
